@@ -3,9 +3,11 @@
 	"id": "felix",
 	"version": "${version}",
 	"name": "The Felix mod :3",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "UwU what's this :3",
 	"authors": [
-		"Me!"
+		"penguinguy0944",
+		"Jajkoczlowiek",
+		"Boris7559"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -16,7 +18,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"penguin.felix.TheFelixMod3"
+			"penguin.felix.FelixMod"
+		],
+		"client": [
+			"penguin.felix.client.FelixModClient"
 		]
 	},
 	"mixins": [
@@ -27,8 +32,5 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }

@@ -1,30 +1,22 @@
 package penguin.felix.entities;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import penguin.felix.FelixMod;
+import net.minecraft.inventory.SimpleInventory;
 
 public class NpcScreenHandler extends ScreenHandler {
 
-    private final Inventory inventory;
+    private final SimpleInventory inventory;
 
-    // This is called from the NamedScreenHandlerFactory in NpcEntity
-    public NpcScreenHandler(int syncId, PlayerInventory playerInventory, int npcEntityId) {
-        super(null, syncId); // We'll register a ScreenHandlerType later if needed
-        // For simplicity, give the NPC a dummy inventory (can be 0 slots for a menu-only GUI)
+    public NpcScreenHandler(int syncId, PlayerInventory playerInventory, int i) {
+        super(FelixMod.NPC_SCREEN_HANDLER, syncId);
         this.inventory = new SimpleInventory(0);
 
-        // Example: if you wanted a 9-slot inventory for demonstration
-        // this.inventory = new SimpleInventory(9);
-        // for (int i = 0; i < 9; i++) {
-        //     this.addSlot(new Slot(inventory, i, 8 + i * 18, 18));
-        // }
-
-        // Player inventory slots (optional if you want player to see their own inventory)
+        // Player inventory slots (if you want to show them)
         int startX = 8;
         int startY = 84;
         for (int row = 0; row < 3; ++row) {
@@ -33,8 +25,6 @@ public class NpcScreenHandler extends ScreenHandler {
                         startX + col * 18, startY + row * 18));
             }
         }
-
-        // Hotbar
         for (int col = 0; col < 9; ++col) {
             this.addSlot(new Slot(playerInventory, col, startX + col * 18, startY + 58));
         }
@@ -42,12 +32,11 @@ public class NpcScreenHandler extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return true; // always allow interaction
+        return true;
     }
 
     @Override
     public ItemStack quickMove(PlayerEntity player, int slot) {
-        // TODO
-        throw new UnsupportedOperationException("Unimplemented method 'quickMove'");
+        return ItemStack.EMPTY;
     }
 }
