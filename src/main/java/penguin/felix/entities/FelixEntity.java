@@ -68,7 +68,7 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
                 // Open the menu
                 if (!this.getWorld().isClient) {
                     NamedScreenHandlerFactory factory = new SimpleNamedScreenHandlerFactory(
-                        (syncId, playerInventory, playerEntity) -> new NpcScreenHandler(syncId, playerInventory),
+                        (syncId, playerInventory, playerEntity) -> new FelixMenuScreenHandler(syncId, playerInventory),
                         Text.literal("NPC Menu")
                     );
                     player.openHandledScreen(factory);
@@ -99,6 +99,6 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
 
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new NpcScreenHandler(syncId, playerInventory);
+        return new FelixMenuScreenHandler(syncId, playerInventory);
     }
 }

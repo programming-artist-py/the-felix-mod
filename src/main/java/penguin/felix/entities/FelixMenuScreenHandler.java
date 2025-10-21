@@ -2,29 +2,34 @@ package penguin.felix.entities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import penguin.felix.FelixMod;
 import net.minecraft.inventory.SimpleInventory;
-
-public class NpcScreenHandler extends ScreenHandler {
+import net.minecraft.item.ItemStack;
+import penguin.felix.FelixMod;
+public class FelixMenuScreenHandler extends ScreenHandler {
 
     private final SimpleInventory inventory;
 
-    public NpcScreenHandler(int syncId, PlayerInventory playerInventory, int i) {
+    public FelixMenuScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(FelixMod.NPC_SCREEN_HANDLER, syncId);
-        this.inventory = new SimpleInventory(0);
+        this.inventory = new SimpleInventory(3); // number of custom slots
 
-        // Player inventory slots (if you want to show them)
+        // Custom slots (like villager input/output)
+        for (int i = 0; i < 3; i++) {
+            this.addSlot(new Slot(inventory, i, 62 + i * 18, 17));
+        }
+
+        // Player inventory slots
         int startX = 8;
         int startY = 84;
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
-                this.addSlot(new Slot(playerInventory, col + row * 9 + 9,
-                        startX + col * 18, startY + row * 18));
+                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, startX + col * 18, startY + row * 18));
             }
         }
+
+        // Hotbar
         for (int col = 0; col < 9; ++col) {
             this.addSlot(new Slot(playerInventory, col, startX + col * 18, startY + 58));
         }

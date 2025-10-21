@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import penguin.felix.entities.FelixEntity;
-import penguin.felix.entities.NpcScreenHandler;
+import penguin.felix.entities.FelixMenuScreenHandler;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -26,7 +26,7 @@ public class FelixMod implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static EntityType<FelixEntity> FELIXENTITY;
-    public static ScreenHandlerType<NpcScreenHandler> NPC_SCREEN_HANDLER;
+    public static ScreenHandlerType<FelixMenuScreenHandler> NPC_SCREEN_HANDLER;
 
     @Override
     public void onInitialize() {
@@ -38,8 +38,8 @@ public class FelixMod implements ModInitializer {
         FabricDefaultAttributeRegistry.register(FELIXENTITY, FelixEntity.createFelixAttributes());
         NPC_SCREEN_HANDLER = Registry.register(
             Registries.SCREEN_HANDLER,
-            Identifier.of(MOD_ID, "npc_screen"),
-            new ScreenHandlerType<NpcScreenHandler>((syncId, inv) -> new NpcScreenHandler(syncId, inv), null)
+            Identifier.of("felix", "npc_screen"),
+            new ScreenHandlerType<FelixMenuScreenHandler>((syncId, inv) -> new FelixMenuScreenHandler(syncId, inv), null)
         );
 		LOGGER.info("Hello Fabric world!");
 	}
