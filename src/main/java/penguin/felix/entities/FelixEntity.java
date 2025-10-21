@@ -11,7 +11,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -27,6 +26,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFactory {
+
+    private boolean menuOpen = false;
 
     public FelixEntity(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
@@ -57,6 +58,21 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
         return null; // safe default
     }
 
+    public boolean isMenuOpen() {
+        return menuOpen;
+    }
+
+    public void setMenuOpen(boolean menuOpen) {
+        this.menuOpen = menuOpen;
+    }
+
+    @Override
+    public void tickMovement() {
+        if (!menuOpen) {
+            super.tickMovement(); // normal movement
+        }
+    }
+
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (!player.getWorld().isClient) {
@@ -68,9 +84,10 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
                 // Open the menu
                 if (!this.getWorld().isClient) {
                     NamedScreenHandlerFactory factory = new SimpleNamedScreenHandlerFactory(
-                        (syncId, playerInventory, playerEntity) -> new FelixMenuScreenHandler(syncId, playerInventory),
+                        (syncId, playerInventory, playerEntity) -> new FelixMenuScreenHandler(syncId, playerInventory, this),
                         Text.literal("NPC Menu")
                     );
+                    this.setMenuOpen(true);
                     player.openHandledScreen(factory);
                 }
                 return ActionResult.SUCCESS;

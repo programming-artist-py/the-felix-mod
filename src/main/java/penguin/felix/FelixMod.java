@@ -38,7 +38,7 @@ public class FelixMod implements ModInitializer {
         FabricDefaultAttributeRegistry.register(FELIXENTITY, FelixEntity.createFelixAttributes());
         NPC_SCREEN_HANDLER = Registry.register(
             Registries.SCREEN_HANDLER,
-            Identifier.of("felix", "npc_screen"),
+            Identifier.of("felix", "npc_screen"),   
             new ScreenHandlerType<FelixMenuScreenHandler>((syncId, inv) -> new FelixMenuScreenHandler(syncId, inv), null)
         );
 		LOGGER.info("Hello Fabric world!");
