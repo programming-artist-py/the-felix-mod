@@ -11,6 +11,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
@@ -26,8 +27,7 @@ public class FelixMod implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static EntityType<FelixEntity> FELIXENTITY;
-    public static ScreenHandlerType<FelixMenuScreenHandler> NPC_SCREEN_HANDLER;
-
+    public static ScreenHandlerType<FelixMenuScreenHandler> FELIX_MENU_HANDLER;
     @Override
     public void onInitialize() {
         // Assign static field
@@ -36,12 +36,13 @@ public class FelixMod implements ModInitializer {
                 .dimensions(0.8f, 1.8f) // similar to a player
         );
         FabricDefaultAttributeRegistry.register(FELIXENTITY, FelixEntity.createFelixAttributes());
-        NPC_SCREEN_HANDLER = Registry.register(
+        FELIX_MENU_HANDLER = Registry.register(
             Registries.SCREEN_HANDLER,
-            Identifier.of("felix", "npc_screen"),   
-            new ScreenHandlerType<FelixMenuScreenHandler>((syncId, inv) -> new FelixMenuScreenHandler(syncId, inv), null)
+            Identifier.of("felix", "npc_menu"),
+            new ScreenHandlerType<>((syncId, inv) -> new FelixMenuScreenHandler(syncId, inv, null), FeatureFlags.VANILLA_FEATURES)
         );
-		LOGGER.info("Hello Fabric world!");
+        Registry.register(Registries.SCREEN_HANDLER, Identifier.of("felix", "npc_menu"), FELIX_MENU_HANDLER);
+		LOGGER.info("[Felix] meow :3");
 	}
 
 

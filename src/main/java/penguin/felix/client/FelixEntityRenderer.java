@@ -20,6 +20,6 @@ public class FelixEntityRenderer extends MobEntityRenderer<FelixEntity, BipedEnt
     @Override
     public Identifier getTexture(FelixEntity entity) {
         // TODO
-        return net.minecraft.util.Identifier.of("felix", "textures/icon.png");
+        return net.minecraft.util.Identifier.of("felix", "textures/entities/felix.png");
     }
 }

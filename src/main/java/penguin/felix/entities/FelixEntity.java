@@ -10,7 +10,6 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -85,9 +84,8 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
                 if (!this.getWorld().isClient) {
                     NamedScreenHandlerFactory factory = new SimpleNamedScreenHandlerFactory(
                         (syncId, playerInventory, playerEntity) -> new FelixMenuScreenHandler(syncId, playerInventory, this),
-                        Text.literal("NPC Menu")
+                        Text.translatable("felixmenu.title")
                     );
-                    this.setMenuOpen(true);
                     player.openHandledScreen(factory);
                 }
                 return ActionResult.SUCCESS;
@@ -96,7 +94,7 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
             // Example: Feed him an apple to heal
             if (heldItem.isOf(Items.APPLE)) {
                 this.heal(4.0F); // Heal Felix
-                player.sendMessage(Text.literal("Felix happily eats the apple! (debug: "+ this.getHealth() +"/"+this.getMaxHealth()+")"), true);
+                player.sendMessage(Text.translatable("felixentity.appleheal.message"), true);
                 if (!player.getAbilities().creativeMode) {
                     heldItem.decrement(1);
                 }
@@ -111,11 +109,11 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
 
     @Override
     public Text getDisplayName() {
-        return Text.literal("Felix");
+        return Text.translatable("felixentity.name");
     }
 
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new FelixMenuScreenHandler(syncId, playerInventory);
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new FelixMenuScreenHandler(syncId, inv, this); // this = FelixEntity
     }
 }

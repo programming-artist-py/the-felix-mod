@@ -12,6 +12,6 @@ public class FelixModClient implements ClientModInitializer {
     public void onInitializeClient() {
         // Register the renderer for the static field
         EntityRendererRegistry.register(FelixMod.FELIXENTITY, FelixEntityRenderer::new);
-        HandledScreens.register(FelixMod.NPC_SCREEN_HANDLER, FelixMenuScreen::new);
+        HandledScreens.register(FelixMod.FELIX_MENU_HANDLER, FelixMenuScreen::new);
     }
 }
