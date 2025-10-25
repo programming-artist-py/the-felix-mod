@@ -3,7 +3,8 @@
 	"package": "penguin.felix.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"BoatEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

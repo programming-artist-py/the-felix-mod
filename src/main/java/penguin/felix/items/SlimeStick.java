@@ -31,6 +31,7 @@ public class SlimeStick extends Item {
             // Heal the player by 1 hearts
             player.heal(2.0F);
 
+            player.getHungerManager().add(2, 0.0F);
             // Play squishy sound
             world.playSound(
                 null,
@@ -59,5 +60,10 @@ public class SlimeStick extends Item {
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         // Sets the use time to 40 ticks (2 seconds)
         return 20; 
+    }
+
+    @Override
+    public int getMaxCount() {
+        return 16;
     }
 }

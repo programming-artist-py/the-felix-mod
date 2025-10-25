@@ -73,8 +73,8 @@ public class FelixMenuScreenHandler extends ScreenHandler {
             // Look up the entity by ID
             var entity = serverWorld.getEntityById(entityId);
             if (entity instanceof FelixEntity felix) {
-                felix.setAiDisabled(false);
-                owner.setAiDisabled(false);
+                felix.disableAiForMenu();
+                owner.disableAiForMenu();
             }
         }
     }

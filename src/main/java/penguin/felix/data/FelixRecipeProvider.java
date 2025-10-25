@@ -20,7 +20,7 @@ public class FelixRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, FelixMod.FELIXSLIMEBUCKET, 1)
-            .pattern(" # ")
+            .pattern("###")
             .pattern(" * ")
             .pattern("   ")
             .input('#', FelixMod.FELIXSLIMEBALL)

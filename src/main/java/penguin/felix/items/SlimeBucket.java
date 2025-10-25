@@ -31,6 +31,8 @@ public class SlimeBucket extends Item {
             // Heal the player by 2 hearts
             player.heal(4.0F);
 
+            player.getHungerManager().add(3, 1.0F);
+
             // Play squishy sound
             world.playSound(
                 null,
@@ -59,5 +61,10 @@ public class SlimeBucket extends Item {
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         // Sets the use time to 40 ticks (2 seconds)
         return 20; 
+    }
+
+    @Override
+    public int getMaxCount() {
+        return 1;
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,6 +35,7 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
 
     private boolean menuOpen = false;
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(12, ItemStack.EMPTY);
+    private boolean felixMenuDisabledAi = false;
 
     public FelixEntity(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
@@ -112,9 +114,60 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
 
     @Override
     public void tickMovement() {
+        // If mounted, skip AI that controls rotation
+        if (this.hasVehicle()) {
+            // Align yaw and head to the vehicle
+            float vehicleYaw = this.getVehicle().getYaw();
+            this.setYaw(vehicleYaw);
+            this.setBodyYaw(vehicleYaw);
+            this.setHeadYaw(vehicleYaw);
+            return;
+        }
+
+        // Normal behavior
+        super.tickMovement();
+
+        // AI recovery
         if (!this.menuOpen && this.isAiDisabled()) {
             this.setAiDisabled(false);
         }
+
+        // Goo ball drops
+        if (!this.getWorld().isClient && this.age % 1200 == 0 && this.random.nextFloat() < 0.125F) {
+            this.dropGooBall();
+        }
+    }
+
+    @Override
+    public void onDeath(DamageSource source) {
+        super.onDeath(source);
+        
+        // Drop Felix's inventory
+        for (ItemStack stack : this.inventory) {
+            if (!stack.isEmpty()) {
+                this.dropStack(stack);
+            }
+        }
+        this.inventory.clear();
+    }
+
+    private void dropGooBall() {
+        if (this.getWorld().isClient) return;
+
+        var goo = new ItemStack(penguin.felix.FelixMod.FELIXSLIMEBALL);
+        this.dropStack(goo);
+
+        this.playSound(net.minecraft.sound.SoundEvents.ENTITY_SLIME_SQUISH, 0.5F, 1.0F + this.random.nextFloat() * 0.4F);
+    }
+
+    
+    public void disableAiForMenu() {
+        this.setAiDisabled(true);
+        this.felixMenuDisabledAi = true;
+    }
+    public void enableAiForMenu() {
+        this.setAiDisabled(false);
+        this.felixMenuDisabledAi = false;
     }
 
     @Override
@@ -127,6 +180,7 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
             if (heldItem.isEmpty()) {
                 // Open the menu
                 if (!this.getWorld().isClient) {
+                    this.disableAiForMenu();
                     player.openHandledScreen(new SimpleNamedScreenHandlerFactory(
                         (syncId, inv, playerEntity) -> new FelixMenuScreenHandler(syncId, inv, this.getId()), // pass entity id
                         Text.literal(" ")
