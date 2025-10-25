@@ -112,8 +112,8 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
 
     @Override
     public void tickMovement() {
-        if (!menuOpen) {
-            super.tickMovement(); // normal movement
+        if (!this.menuOpen && this.isAiDisabled()) {
+            this.setAiDisabled(false);
         }
     }
 
