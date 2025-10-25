@@ -13,7 +13,11 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.item.Items;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
@@ -27,6 +31,7 @@ import net.minecraft.world.World;
 public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFactory {
 
     private boolean menuOpen = false;
+    private final SimpleInventory inventory = new SimpleInventory(12);
 
     public FelixEntity(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
@@ -50,6 +55,40 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
     @Override
     public boolean isBreedingItem(ItemStack stack) {
         return false; // safe default
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+
+        NbtList itemList = new NbtList();
+        for (int i = 0; i < inventory.size(); i++) {
+            ItemStack stack = inventory.getStack(i);
+            if (!stack.isEmpty()) {
+                NbtCompound itemTag = new NbtCompound();
+                itemTag.putByte("Slot", (byte) i);
+                // Use the encode method with the registry from the world
+                stack.encode(getWorld().getRegistryManager(), itemTag);
+                itemList.add(itemTag);
+            }
+        }
+        nbt.put("Inventory", itemList);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+
+        NbtList itemList = nbt.getList("Inventory", NbtElement.COMPOUND_TYPE);
+        for (int i = 0; i < itemList.size(); i++) {
+            NbtCompound itemTag = itemList.getCompound(i);
+            int slot = itemTag.getByte("Slot") & 255;
+            if (slot >= 0 && slot < inventory.size()) {
+                // Decode using world registry
+                ItemStack stack = ItemStack.fromNbt(getWorld().getRegistryManager(), itemTag).orElse(ItemStack.EMPTY);
+                inventory.setStack(slot, stack);
+            }
+        }
     }
 
     @Override
@@ -115,5 +154,10 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
         return new FelixMenuScreenHandler(syncId, inv, this); // this = FelixEntity
+    }
+
+
+    public SimpleInventory getInventory() {
+        return inventory;
     }
 }

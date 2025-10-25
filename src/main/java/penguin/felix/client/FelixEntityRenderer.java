@@ -1,24 +1,24 @@
 package penguin.felix.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.util.Identifier;
 import penguin.felix.entities.FelixEntity;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvType;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 
 @Environment(EnvType.CLIENT)
-public class FelixEntityRenderer extends MobEntityRenderer<FelixEntity, BipedEntityModel<FelixEntity>> {
+public class FelixEntityRenderer extends MobEntityRenderer<FelixEntity, PlayerEntityModel<FelixEntity>> {
 
     public FelixEntityRenderer(EntityRendererFactory.Context context) {
-        // Must provide a concrete BipedEntityModel with ModelPart
-        super(context, new BipedEntityModel<>(context.getPart(EntityModelLayers.PLAYER_SLIM)), 0.5f);
+        // true = slim arms, false = normal arms
+        super(context, new PlayerEntityModel<>(context.getPart(EntityModelLayers.PLAYER_SLIM), true), 0.5f);
     }
 
     @Override
     public Identifier getTexture(FelixEntity entity) {
-        return net.minecraft.util.Identifier.of("felix", "textures/entities/felix.png");
+        return Identifier.of("felix", "textures/entities/felix.png");
     }
 }
