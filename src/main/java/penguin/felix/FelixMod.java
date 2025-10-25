@@ -8,6 +8,7 @@ import net.minecraft.entity.SpawnGroup;
 import penguin.felix.entities.FelixEntity;
 import penguin.felix.entities.FelixMenuScreenHandler;
 import penguin.felix.items.SlimeBall;
+import penguin.felix.items.SlimeBucket;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -30,6 +31,7 @@ public class FelixMod implements ModInitializer {
 	public static EntityType<FelixEntity> FELIXENTITY;
     public static ScreenHandlerType<FelixMenuScreenHandler> FELIX_MENU_HANDLER;
     public static final Item FELIXSLIMEBALL = new SlimeBall(new Item.Settings());
+    public static final Item FELIXSLIMEBUCKET = new SlimeBucket(new Item.Settings());
 
     @Override
     public void onInitialize() {
@@ -45,8 +47,8 @@ public class FelixMod implements ModInitializer {
             new ScreenHandlerType<>((syncId, inv) -> new FelixMenuScreenHandler(syncId, inv, 0), FeatureFlags.VANILLA_FEATURES)
         );
         Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "goo_ball"), FELIXSLIMEBALL);
-
-
+        Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "goo_bucket"), FELIXSLIMEBUCKET);
+        
 		LOGGER.info("[Felix] meow :3");
 
         LOGGER.info("Item translation key: {}", FELIXSLIMEBALL.getTranslationKey());

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "felix:goo_ball"
+    },
+    "*": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "pattern": [
+    " # ",
+    " * ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "felix:goo_bucket"
+  }
+}

@@ -22,7 +22,10 @@
 		],
 		"client": [
 			"penguin.felix.client.FelixModClient"
-		]
+		],
+		"fabric-datagen": [
+      		"penguin.felix.data.DataGenerator"
+    	]
 	},
 	"mixins": [
 		"felix.mixins.json"
