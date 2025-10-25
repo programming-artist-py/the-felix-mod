@@ -13,8 +13,8 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -26,12 +26,14 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFactory {
 
     private boolean menuOpen = false;
-    private final SimpleInventory inventory = new SimpleInventory(12);
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(12, ItemStack.EMPTY);
 
     public FelixEntity(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
@@ -63,13 +65,14 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
 
         NbtList itemList = new NbtList();
         for (int i = 0; i < inventory.size(); i++) {
-            ItemStack stack = inventory.getStack(i);
+            ItemStack stack = inventory.get(i);
             if (!stack.isEmpty()) {
-                NbtCompound itemTag = new NbtCompound();
-                itemTag.putByte("Slot", (byte) i);
-                // Use the encode method with the registry from the world
-                stack.encode(getWorld().getRegistryManager(), itemTag);
-                itemList.add(itemTag);
+                NbtCompound stackTag = new NbtCompound();
+                stackTag.putByte("Slot", (byte)i);
+                stackTag.putString("Item", net.minecraft.registry.Registries.ITEM.getId(stack.getItem()).toString());
+                stackTag.putByte("Count", (byte)stack.getCount());
+                // NO getNbt() or setNbt() called here
+                itemList.add(stackTag);
             }
         }
         nbt.put("Inventory", itemList);
@@ -79,14 +82,17 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
 
+        inventory.clear();
         NbtList itemList = nbt.getList("Inventory", NbtElement.COMPOUND_TYPE);
+
         for (int i = 0; i < itemList.size(); i++) {
-            NbtCompound itemTag = itemList.getCompound(i);
-            int slot = itemTag.getByte("Slot") & 255;
+            NbtCompound stackTag = itemList.getCompound(i);
+            int slot = stackTag.getByte("Slot") & 255;
             if (slot >= 0 && slot < inventory.size()) {
-                // Decode using world registry
-                ItemStack stack = ItemStack.fromNbt(getWorld().getRegistryManager(), itemTag).orElse(ItemStack.EMPTY);
-                inventory.setStack(slot, stack);
+                String itemId = stackTag.getString("Item");
+                int count = stackTag.getByte("Count");
+                var item = net.minecraft.registry.Registries.ITEM.get(Identifier.tryParse(itemId));
+                if (item != null) inventory.set(slot, new ItemStack(item, count));
             }
         }
     }
@@ -121,16 +127,14 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
             if (heldItem.isEmpty()) {
                 // Open the menu
                 if (!this.getWorld().isClient) {
-                    NamedScreenHandlerFactory factory = new SimpleNamedScreenHandlerFactory(
-                        (syncId, playerInventory, playerEntity) -> new FelixMenuScreenHandler(syncId, playerInventory, this),
+                    player.openHandledScreen(new SimpleNamedScreenHandlerFactory(
+                        (syncId, inv, playerEntity) -> new FelixMenuScreenHandler(syncId, inv, this.getId()), // pass entity id
                         Text.literal(" ")
-                    );
-                    player.openHandledScreen(factory);
+                    ));
                 }
                 return ActionResult.SUCCESS;
             }
 
-            // Example: Feed him an apple to heal
             if (heldItem.isOf(Items.APPLE)) {
                 this.heal(4.0F); // Heal Felix
                 player.sendMessage(Text.translatable("felixentity.appleheal.message"), true);
@@ -139,8 +143,6 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
                 }
                 return ActionResult.SUCCESS;
             }
-
-            // Add other interactions here!
         }
 
         return super.interactMob(player, hand);
@@ -153,11 +155,64 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
 
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new FelixMenuScreenHandler(syncId, inv, this); // this = FelixEntity
+        return new FelixMenuScreenHandler(syncId, inv, this.getId()); // this = FelixEntity
     }
 
-
-    public SimpleInventory getInventory() {
+    public DefaultedList<ItemStack> getInventoryList() {
         return inventory;
     }
+
+    public Inventory getInventory() {
+        return new Inventory() {
+            @Override
+            public int size() {
+                return inventory.size();
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return inventory.stream().allMatch(ItemStack::isEmpty);
+            }
+
+            @Override
+            public ItemStack getStack(int slot) {
+                return inventory.get(slot);
+            }
+
+            @Override
+            public ItemStack removeStack(int slot, int amount) {
+                ItemStack stack = Inventories.splitStack(inventory, slot, amount);
+                markDirty();
+                return stack;
+            }
+
+            @Override
+            public ItemStack removeStack(int slot) {
+                ItemStack stack = inventory.get(slot);
+                inventory.set(slot, ItemStack.EMPTY);
+                markDirty();
+                return stack;
+            }
+
+            @Override
+            public void setStack(int slot, ItemStack stack) {
+                inventory.set(slot, stack);
+                markDirty();
+            }
+
+            @Override
+            public void markDirty() {}
+
+            @Override
+            public boolean canPlayerUse(PlayerEntity player) {
+                return true;
+            }
+
+            @Override
+            public void clear() {
+                inventory.clear();
+            }
+        };
+    }
+
 }

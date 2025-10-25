@@ -42,7 +42,7 @@ public class FelixMod implements ModInitializer {
         FELIX_MENU_HANDLER = Registry.register(
             Registries.SCREEN_HANDLER,
             Identifier.of("felix", "npc_menu"),
-            new ScreenHandlerType<>((syncId, inv) -> new FelixMenuScreenHandler(syncId, inv, null), FeatureFlags.VANILLA_FEATURES)
+            new ScreenHandlerType<>((syncId, inv) -> new FelixMenuScreenHandler(syncId, inv, 0), FeatureFlags.VANILLA_FEATURES)
         );
         Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "goo_ball"), FELIXSLIMEBALL);
 
