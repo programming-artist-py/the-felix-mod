@@ -12,9 +12,9 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
-public class SlimeBucket extends Item {
+public class SlimeStick extends Item {
 
-    public SlimeBucket(Settings settings) {
+    public SlimeStick(Settings settings) {
         super(settings);
     }
 
@@ -28,8 +28,8 @@ public class SlimeBucket extends Item {
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity entity) {
         if (!world.isClient && entity instanceof PlayerEntity player) {
-            // Heal the player by 2 hearts
-            player.heal(4.0F);
+            // Heal the player by 1 hearts
+            player.heal(2.0F);
 
             // Play squishy sound
             world.playSound(
@@ -44,7 +44,7 @@ public class SlimeBucket extends Item {
             // Consume the item and give empty bucket
             if (!player.isCreative()) {
                 stack.decrement(1);
-                player.giveItemStack(new ItemStack(Items.BUCKET));
+                player.giveItemStack(new ItemStack(Items.STICK));
             }
         }
         return stack;

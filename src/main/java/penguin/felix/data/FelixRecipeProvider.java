@@ -19,7 +19,7 @@ public class FelixRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter exporter) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, FelixMod.FELIXSLIMEBUCKET, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, FelixMod.FELIXSLIMEBUCKET, 1)
             .pattern(" # ")
             .pattern(" * ")
             .pattern("   ")
@@ -27,6 +27,23 @@ public class FelixRecipeProvider extends FabricRecipeProvider {
             .input('*', Items.BUCKET)
             .criterion(hasItem(FelixMod.FELIXSLIMEBALL), conditionsFromItem(FelixMod.FELIXSLIMEBALL))
             .offerTo(exporter, "felix_goo_to_bucket");
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, FelixMod.FELIXSLIMESTICK, 1)
+            .pattern("  #")
+            .pattern(" * ")
+            .pattern("   ")
+            .input('#', FelixMod.FELIXSLIMEBALL)
+            .input('*', Items.STICK)
+            .criterion(hasItem(FelixMod.FELIXSLIMEBALL), conditionsFromItem(FelixMod.FELIXSLIMEBALL))
+            .offerTo(exporter, "felix_goo_to_stick_right");
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, FelixMod.FELIXSLIMESTICK, 1)
+            .pattern("#  ")
+            .pattern(" * ")
+            .pattern("   ")
+            .input('#', FelixMod.FELIXSLIMEBALL)
+            .input('*', Items.STICK)
+            .criterion(hasItem(FelixMod.FELIXSLIMEBALL), conditionsFromItem(FelixMod.FELIXSLIMEBALL))
+            .offerTo(exporter, "felix_goo_to_stick_left");
     }
 
 }

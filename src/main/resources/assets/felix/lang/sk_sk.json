@@ -4,5 +4,9 @@
     "felixentity.name": "Felixa",
     "generic.inventory": "Inventár",
     "felixmenu.panel.servicetext": "Felixove veci",
-    "generic.emerald": "Smaragd"
+    "generic.emerald": "Smaragd",
+    "item.felix.goo_ball": "spermá guľa",
+    "item.felix.goo_bucket": "vedro naplnené sperma",
+    "item.felix.goo_stick": "zamrznutá sperm na paličke",
+    "item.felix.felix_spawn_egg": "Felixovo vajce na vyvolanie"
 }

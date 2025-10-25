@@ -88,7 +88,7 @@ public class FelixMenuScreenHandler extends ScreenHandler {
             newStack = original.copy();
 
             if (index >= 0 && index < 12) { // Felix slots
-                if (!this.insertItem(original, 16, 12, true)) return ItemStack.EMPTY;
+                if (!this.insertItem(original, 12, 16, false)) return ItemStack.EMPTY;
             } else if (index >= 12 && index < 16) { // player hotbar
                 if (!this.insertItem(original, 0, 12, false)) return ItemStack.EMPTY;
             } else {

@@ -6,16 +6,16 @@
       "item": "felix:goo_ball"
     },
     "*": {
-      "item": "minecraft:bucket"
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    " # ",
+    "#  ",
     " * ",
     "   "
   ],
   "result": {
     "count": 1,
-    "id": "felix:goo_bucket"
+    "id": "felix:goo_stick"
   }
 }

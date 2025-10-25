@@ -1,3 +1,7 @@
-// 1.21.1	2025-10-25T15:42:30.5805139	The Felix mod :3/Recipes
-208b0b65cb47386ab2cad1592388891d368a8bac data\felix\recipe\felix_goo_to_bucket.json
-eb925e329b8e1be222445e649856cfa2d39d1fa7 data\felix\advancement\recipes\building_blocks\felix_goo_to_bucket.json
+// 1.21.1	2025-10-25T17:15:26.021326	The Felix mod :3/Recipes
+f6ebdab91dcbd3e858b224b1a88b57276bafd213 data\felix\recipe\felix_goo_to_bucket.json
+aeff530211ae3086b85ac6a33c586375c44f8a6d data\felix\recipe\felix_goo_to_stick_left.json
+fe34b2c53f7d2e4b9a82163107c03adbc42ac06c data\felix\advancement\recipes\food\felix_goo_to_stick_right.json
+eb925e329b8e1be222445e649856cfa2d39d1fa7 data\felix\advancement\recipes\food\felix_goo_to_bucket.json
+e16204b8bb1364e1fe5fbb9c33bb6a41842a24b9 data\felix\advancement\recipes\food\felix_goo_to_stick_left.json
+cbb234d053735d78c0e8f7e776595f8e7260ee27 data\felix\recipe\felix_goo_to_stick_right.json

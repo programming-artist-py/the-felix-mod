@@ -4,5 +4,9 @@
     "felixentity.name": "Ferrisa",
     "generic.inventory": "Ekwipunek",
     "felixmenu.panel.servicetext": "Rzeczy Felixa",
-    "generic.emerald": "Szmaragd"
+    "generic.emerald": "Szmaragd",
+    "item.felix.goo_ball": "Kula spermy",
+    "item.felix.goo_bucket": "Wiadro spermy",
+    "item.felix.goo_stick": "Lizak z spermy",
+    "item.felix.felix_spawn_egg": "Jajo spawnujące Felixa"
 }

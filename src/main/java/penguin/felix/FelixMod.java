@@ -7,8 +7,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import penguin.felix.entities.FelixEntity;
 import penguin.felix.entities.FelixMenuScreenHandler;
+import penguin.felix.items.FelixSpawnEggItem;
 import penguin.felix.items.SlimeBall;
 import penguin.felix.items.SlimeBucket;
+import penguin.felix.items.SlimeStick;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -32,7 +34,8 @@ public class FelixMod implements ModInitializer {
     public static ScreenHandlerType<FelixMenuScreenHandler> FELIX_MENU_HANDLER;
     public static final Item FELIXSLIMEBALL = new SlimeBall(new Item.Settings());
     public static final Item FELIXSLIMEBUCKET = new SlimeBucket(new Item.Settings());
-
+    public static final Item FELIXSLIMESTICK = new SlimeStick(new Item.Settings());
+    public static final Item FELIXSPAWNEGG = new FelixSpawnEggItem(new Item.Settings());
     @Override
     public void onInitialize() {
         // Assign static field
@@ -48,10 +51,10 @@ public class FelixMod implements ModInitializer {
         );
         Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "goo_ball"), FELIXSLIMEBALL);
         Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "goo_bucket"), FELIXSLIMEBUCKET);
+        Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "goo_stick"), FELIXSLIMESTICK);
+        Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "felix_spawn_egg"), FELIXSPAWNEGG);
         
 		LOGGER.info("[Felix] meow :3");
-
-        LOGGER.info("Item translation key: {}", FELIXSLIMEBALL.getTranslationKey());
 	}
 
 
