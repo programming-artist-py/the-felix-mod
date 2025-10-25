@@ -1,5 +1,10 @@
 {
     "felixmenu.title": "Felix",
     "felixentity.appleheal.message": "Meow :3 :3 Thanks~~",
-    "felixentity.name": "Felix"
+    "felixentity.name": "Felix",
+    "generic.inventory": "Inventory",
+    "felixmenu.panel.servicetext": "Felix's stuff",
+    "generic.emerald": "Emerald",
+    "item.felix.goo_ball": "goo ball",
+    "item.minecraft.diamond": "Felix Diamond"
 }

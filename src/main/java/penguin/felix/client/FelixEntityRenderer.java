@@ -14,12 +14,11 @@ public class FelixEntityRenderer extends MobEntityRenderer<FelixEntity, BipedEnt
 
     public FelixEntityRenderer(EntityRendererFactory.Context context) {
         // Must provide a concrete BipedEntityModel with ModelPart
-        super(context, new BipedEntityModel<>(context.getPart(EntityModelLayers.PLAYER)), 0.5f);
+        super(context, new BipedEntityModel<>(context.getPart(EntityModelLayers.PLAYER_SLIM)), 0.5f);
     }
 
     @Override
     public Identifier getTexture(FelixEntity entity) {
-        // TODO
         return net.minecraft.util.Identifier.of("felix", "textures/entities/felix.png");
     }
 }

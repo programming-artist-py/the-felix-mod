@@ -1,5 +1,8 @@
 {
-    "felixmenu.title": "Ferris",
+    "felixmenu.title": "Ferrisa",
     "felixentity.appleheal.message": "Miau :3 :3 Dziękuje~~",
-    "felixentity.name": "Ferris"
+    "felixentity.name": "Ferrisa",
+    "generic.inventory": "Ekwipunek",
+    "felixmenu.panel.servicetext": "Rzeczy Felixa",
+    "generic.emerald": "Szmaragd"
 }

@@ -1,5 +1,8 @@
 {
     "felixmenu.title": "Felixa",
     "felixentity.appleheal.message": "Mňau :3 :3 Ďakujem~~",
-    "felixentity.name": "Felixa"
+    "felixentity.name": "Felixa",
+    "generic.inventory": "Inventár",
+    "felixmenu.panel.servicetext": "Felixove veci",
+    "generic.emerald": "Smaragd"
 }

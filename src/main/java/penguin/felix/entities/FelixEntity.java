@@ -84,7 +84,7 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
                 if (!this.getWorld().isClient) {
                     NamedScreenHandlerFactory factory = new SimpleNamedScreenHandlerFactory(
                         (syncId, playerInventory, playerEntity) -> new FelixMenuScreenHandler(syncId, playerInventory, this),
-                        Text.translatable("felixmenu.title")
+                        Text.literal(" ")
                     );
                     player.openHandledScreen(factory);
                 }

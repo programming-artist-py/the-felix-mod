@@ -27,10 +27,18 @@ public class FelixMenuScreen extends HandledScreen<FelixMenuScreenHandler> {
         context.drawTexture(BACKGROUND, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
     }
 
-	@Override
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		super.render(context, mouseX, mouseY, delta);
-		context.drawText(this.textRenderer, this.title.getString(), this.backgroundWidth / 2, this.y + 6, 0x404040, false);
-		this.drawMouseoverTooltip(context, mouseX, mouseY);
-	}
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
+
+        Text titleText = Text.translatable("felixmenu.title");
+        int textWidth = this.textRenderer.getWidth(titleText);
+
+        // Center horizontally within the screen background
+        int centeredX = this.x + (this.backgroundWidth - textWidth) / 2;
+        int titleY = this.y + 2;
+
+        context.drawText(this.textRenderer, titleText, centeredX, titleY, 0x404040, false);
+        this.drawMouseoverTooltip(context, mouseX, mouseY);
+    }
 }

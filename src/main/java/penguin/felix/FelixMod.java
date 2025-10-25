@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import penguin.felix.entities.FelixEntity;
 import penguin.felix.entities.FelixMenuScreenHandler;
+import penguin.felix.items.SlimeBall;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -14,7 +15,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
-
+import net.minecraft.item.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,8 @@ public class FelixMod implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static EntityType<FelixEntity> FELIXENTITY;
     public static ScreenHandlerType<FelixMenuScreenHandler> FELIX_MENU_HANDLER;
+    public static final Item FELIXSLIMEBALL = new SlimeBall(new Item.Settings());
+
     @Override
     public void onInitialize() {
         // Assign static field
@@ -41,8 +44,12 @@ public class FelixMod implements ModInitializer {
             Identifier.of("felix", "npc_menu"),
             new ScreenHandlerType<>((syncId, inv) -> new FelixMenuScreenHandler(syncId, inv, null), FeatureFlags.VANILLA_FEATURES)
         );
-        Registry.register(Registries.SCREEN_HANDLER, Identifier.of("felix", "npc_menu"), FELIX_MENU_HANDLER);
+        Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "goo_ball"), FELIXSLIMEBALL);
+
+
 		LOGGER.info("[Felix] meow :3");
+
+        LOGGER.info("Item translation key: {}", FELIXSLIMEBALL.getTranslationKey());
 	}
 
 
