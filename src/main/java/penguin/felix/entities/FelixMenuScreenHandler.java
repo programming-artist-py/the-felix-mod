@@ -4,34 +4,38 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
 import penguin.felix.FelixMod;
 
 public class FelixMenuScreenHandler extends ScreenHandler {
 
     private final Inventory felixInventory;
     private final int entityId;
-    private FelixEntity owner;
-    
+    private final FelixEntity owner;
+
     public FelixMenuScreenHandler(int syncId, PlayerInventory playerInventory, int entityId) {
         super(FelixMod.FELIX_MENU_HANDLER, syncId);
 
         PlayerEntity player = playerInventory.player;
-        World world = player.getWorld();
-        if (world != null && world.getEntityById(entityId) instanceof FelixEntity felix) {
-            owner = felix;
-            owner.setAiDisabled(true);
-        } else {
-            owner = null;
+        this.entityId = entityId;
+
+        FelixEntity felix = null;
+        if (player.getWorld() instanceof ServerWorld serverWorld) {
+            if (serverWorld.getEntityById(entityId) instanceof FelixEntity found) {
+                felix = found;
+                felix.setAiDisabled(true);
+            }
         }
+        this.owner = felix;
 
         this.felixInventory = new Inventory() {
-            private final DefaultedList<ItemStack> inv = (owner != null) ? owner.getInventoryList() : DefaultedList.ofSize(12, ItemStack.EMPTY);
+            private final DefaultedList<ItemStack> inv = (owner != null)
+                    ? owner.getInventoryList()
+                    : DefaultedList.ofSize(12, ItemStack.EMPTY);
 
             @Override public int size() { return inv.size(); }
             @Override public boolean isEmpty() { return inv.stream().allMatch(ItemStack::isEmpty); }
@@ -43,7 +47,6 @@ public class FelixMenuScreenHandler extends ScreenHandler {
             @Override public boolean canPlayerUse(PlayerEntity player) { return true; }
             @Override public void clear() { inv.clear(); }
         };
-        this.entityId = 0;
 
         int startX = 10;
         int startY = 84;
@@ -54,29 +57,30 @@ public class FelixMenuScreenHandler extends ScreenHandler {
             }
         }
 
-        // Player hotbar
-        startY = 142;
-        for (int col = 0; col < 4; ++col) {
-            int x = startX + col * 18;
-            this.addSlot(new Slot(playerInventory, col, x, startY)); // Visible
+        // --- Player inventory (optional full layout)
+        int playerInvY = 142;
+        for (int i = 0; i < 9; ++i) {
+            this.addSlot(new Slot(playerInventory, i, startX + i * 18, playerInvY));
         }
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) { return true; }
+    public boolean canUse(PlayerEntity player) {
+        // Let FelixEntity handle closing explicitly on death
+        return this.owner != null;
+    }
 
     @Override
     public void onClosed(PlayerEntity player) {
         super.onClosed(player);
-
-        if (!player.getWorld().isClient() && player.getWorld() instanceof ServerWorld serverWorld) {
-            // Look up the entity by ID
-            var entity = serverWorld.getEntityById(entityId);
-            if (entity instanceof FelixEntity felix) {
-                felix.disableAiForMenu();
-                owner.disableAiForMenu();
-            }
+        if (!player.getWorld().isClient && owner != null) {
+            owner.enableAiForMenu();
+            owner.currentViewer = null;
         }
+    }
+
+    public FelixEntity getFelix() {
+        return this.owner;
     }
 
     @Override
@@ -87,12 +91,10 @@ public class FelixMenuScreenHandler extends ScreenHandler {
             ItemStack original = slot.getStack();
             newStack = original.copy();
 
-            if (index >= 0 && index < 12) { // Felix slots
-                if (!this.insertItem(original, 12, 16, false)) return ItemStack.EMPTY;
-            } else if (index >= 12 && index < 16) { // player hotbar
+            if (index < 12) { // Felix slots
+                if (!this.insertItem(original, 12, this.slots.size(), false)) return ItemStack.EMPTY;
+            } else { // Player slots
                 if (!this.insertItem(original, 0, 12, false)) return ItemStack.EMPTY;
-            } else {
-                return ItemStack.EMPTY;
             }
 
             if (original.isEmpty()) slot.setStack(ItemStack.EMPTY);

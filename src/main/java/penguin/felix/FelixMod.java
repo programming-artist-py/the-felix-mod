@@ -32,10 +32,10 @@ public class FelixMod implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static EntityType<FelixEntity> FELIXENTITY;
     public static ScreenHandlerType<FelixMenuScreenHandler> FELIX_MENU_HANDLER;
-    public static final Item FELIXSLIMEBALL = new SlimeBall(new Item.Settings());
-    public static final Item FELIXSLIMEBUCKET = new SlimeBucket(new Item.Settings());
-    public static final Item FELIXSLIMESTICK = new SlimeStick(new Item.Settings());
-    public static final Item FELIXSPAWNEGG = new FelixSpawnEggItem(new Item.Settings());
+    public static final Item FELIXSLIMEBALL = new SlimeBall(new Item.Settings().maxCount(64));
+    public static final Item FELIXSLIMEBUCKET = new SlimeBucket(new Item.Settings().maxCount(1));
+    public static final Item FELIXSLIMESTICK = new SlimeStick(new Item.Settings().maxCount(16));
+    public static final Item FELIXSPAWNEGG = new FelixSpawnEggItem(new Item.Settings().maxCount(64));
     @Override
     public void onInitialize() {
         // Assign static field
