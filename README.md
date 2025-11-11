@@ -18,7 +18,7 @@ The Felix Mod is a work-in-progress Minecraft mod that adds a new friendly (and 
 ### Features
 - Interactive NPC: Talk to Felix, trade with him, or just enjoy his company.
 - Combat Assistance: Felix can fight mobs alongside you and protect your base.
-- (WIP) More features to come — dialogue, custom _animations_, and special events!
+- (WIP) More features to come — dialogue, custom _[https://github.com/programming-artist-py/the-felix-mod/blob/main/README.md#important](animations)_, and special events!
 
 ### Status
 This mod is still in early development. Expect updates, tweaks, and plenty of bugs to squash (hopefully not the cute kind).
