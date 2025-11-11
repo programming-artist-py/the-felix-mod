@@ -11,7 +11,7 @@ so until we find a way to make the animations in blender or some other similar s
 
 
 # THE Felix Mod
-“Nyaa! Felix is here to help you, nya~!”
+~ Nyaa! Felix is here to help you, nya~! ~
 
 The Felix Mod is a work-in-progress Minecraft mod that adds a new friendly (and slightly mischievous) companion to your world — Felix Argyle!
 
