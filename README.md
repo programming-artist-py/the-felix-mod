@@ -8,6 +8,7 @@ me with the animator for this project figured out that the only way to use gecko
 jajkoczlowiek is only used to blender ~~(and literally only blender lmao)~~.
 
 so until we find a way to make the animations in blender or some other similar software (preferably not absolute shit), development will be nearly fully ceased/stalled.
+If you know a good solution or workaround, PLEASE share this. I am desperate to get this mod done so that I can start working on another. PLEASE... PLEASE
 
 
 # THE Felix Mod
