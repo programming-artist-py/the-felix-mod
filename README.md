@@ -4,7 +4,7 @@ development of the felix mod will be stalled because of the animations.
 
 detailed reason:
 
-me with the animator for this project figured out that the only way to use gecko lib (or any forks like azure) require the use of blockbench, except its actual dogshit.
+me along with the animator for this project figured out that the only way to use gecko lib (or any forks like azure) require the use of blockbench, except its actual dogshit.
 jajkoczlowiek is only used to blender ~~(and literally only blender lmao)~~.
 
 so until we find a way to make the animations in blender or some other similar software (preferably not absolute shit), development will be nearly fully ceased/stalled.
