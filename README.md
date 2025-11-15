@@ -24,5 +24,19 @@ The Felix Mod is a work-in-progress Minecraft mod that adds a new friendly (and 
 ### Status
 This mod is still in early development. Expect updates, tweaks, and plenty of bugs to squash (hopefully not the cute kind).
 
+### Recipes
+
+**to craft the cum bucket / cum-filled bucket:**
+
+Place a bucket in the center and in all 3 slots above it, place cum balls
+
+![Cumbucket Screenshot](https://raw.githubusercontent.com/programming-artist-py/the-felix-mod/main/src/main/resources/assets/felix/screenshots/screenshot_craftingcumbucket.png)
+
+**to craft the cum popsicle / cum on a stick:**
+
+Place a stick in the center and to either it's top-left or top-right, place a cum ball
+
+![Cumstick Screenshot](https://raw.githubusercontent.com/programming-artist-py/the-felix-mod/main/src/main/resources/assets/felix/screenshots/screenshot_craftingcumstick.png)
+
 ### Credits
 Inspired by Felix Argyle from Re:Zero – Starting Life in Another World.
