@@ -1,5 +1,8 @@
 package penguin.felix.entities;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -16,6 +19,9 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.DynamicRegistryManager.Immutable;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
@@ -23,16 +29,22 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import penguin.felix.FelixMod;
 
-public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFactory {
+public class FelixEntity extends AnimalEntity implements GeoEntity, NamedScreenHandlerFactory, Immutable {
 
     private boolean menuOpen = false;
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(12, ItemStack.EMPTY);
     private boolean felixMenuDisabledAi = false;
     public PlayerEntity currentViewer; // keep public for handler access
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
 
     public FelixEntity(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
@@ -235,5 +247,29 @@ public class FelixEntity extends AnimalEntity implements NamedScreenHandlerFacto
             @Override public boolean canPlayerUse(PlayerEntity player) { return true; }
             @Override public void clear() { inventory.clear(); }
         };
+    }
+
+    @Override
+    public <E> Optional<Registry<E>> getOptional(RegistryKey<? extends Registry<? extends E>> key) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOptional'");
+    }
+
+    @Override
+    public Stream<Entry<?>> streamAllRegistries() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'streamAllRegistries'");
+    }
+
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        // Example — you can add animation controllers here
+    }
+
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 }

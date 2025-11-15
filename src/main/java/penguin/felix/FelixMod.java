@@ -1,6 +1,8 @@
 package penguin.felix;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -17,6 +19,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.item.*;
 
@@ -36,6 +39,8 @@ public class FelixMod implements ModInitializer {
     public static final Item FELIXSLIMEBUCKET = new SlimeBucket(new Item.Settings().maxCount(1));
     public static final Item FELIXSLIMESTICK = new SlimeStick(new Item.Settings().maxCount(16));
     public static final Item FELIXSPAWNEGG = new FelixSpawnEggItem(new Item.Settings().maxCount(64));
+    public static RegistryKey<ItemGroup> CUSTOM_ITEM_GROUP_KEY = null;
+
     @Override
     public void onInitialize() {
         // Assign static field
@@ -54,6 +59,21 @@ public class FelixMod implements ModInitializer {
         Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "goo_stick"), FELIXSLIMESTICK);
         Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "felix_spawn_egg"), FELIXSPAWNEGG);
         
+
+        // creative tab
+        CUSTOM_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "felixthings"));
+        ItemGroup CUSTOM_ITEM_GROUP = FabricItemGroup.builder()
+		.icon(() -> new ItemStack(FELIXSLIMEBALL))
+		.displayName(Text.translatable("itemGroup.felixmod"))
+		.build();
+        
+        Registry.register(Registries.ITEM_GROUP, CUSTOM_ITEM_GROUP_KEY, CUSTOM_ITEM_GROUP);
+        ItemGroupEvents.modifyEntriesEvent(CUSTOM_ITEM_GROUP_KEY).register(ItemGroup -> {
+            ItemGroup.add(FELIXSLIMEBALL);
+            ItemGroup.add(FELIXSLIMEBUCKET);
+            ItemGroup.add(FELIXSLIMESTICK);
+            ItemGroup.add(FELIXSPAWNEGG);
+        });
 		LOGGER.info("[Felix] meow :3");
 	}
 

@@ -8,5 +8,6 @@
     "item.felix.goo_ball": "cum ball",
     "item.felix.goo_bucket": "cum bucket",
     "item.felix.goo_stick": "cum popsicle",
-    "item.felix.felix_spawn_egg": "Felix's Spawn Egg"
+    "item.felix.felix_spawn_egg": "Felix's Spawn Egg",
+    "itemGroup.felixmod": "Felix's Mod"
 }

@@ -6,6 +6,7 @@
 		"0": "felix:item/goo_stick",
 		"particle": "felix:item/goo_stick"
 	},
+	"gui_light": "front",
 	"elements": [
 		{
 			"from": [4, 0, 11],
@@ -241,8 +242,8 @@
 			"translation": [0, 5.5, 0]
 		},
 		"gui": {
-			"rotation": [-90, -180, 0],
-			"translation": [0, 0, 2]
+			"rotation": [90, 0, 0],
+			"translation": [-0.75, 0, 0]
 		},
 		"head": {
 			"rotation": [90, -135, 0],
