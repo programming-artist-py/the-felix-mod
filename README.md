@@ -10,9 +10,34 @@ jajkoczlowiek is only used to blender ~~(and literally only blender lmao)~~.
 so until we find a way to make the animations in blender or some other similar software (preferably not absolute shit), development will be nearly fully ceased/stalled.
 If you know a good solution or workaround, PLEASE share this. I am desperate to get this mod done so that I can start working on another. PLEASE... PLEASE
 
+# Dependencies
+
+### Fabric API
+
+version: 0.116.7
+
+why: nearly everything in this mod needs Fabric API
+
+where to find: modrinth, curseforge, every legitimate mod site really
+
+### Gecko Lib
+
+version: 4.8.2
+
+why: I was in a rush to get some updates out and I just left it there, it's kind of useless until the animations update...
+
+where to find: modrinth, curseforge, every legitimate mod site really
+
+### Serpentine
+
+version: 1.6.0
+
+why: Config stuff
+
+where to find: the jar file will be available along side the felix mod jar in releases (1.5.0+)
 
 # THE Felix Mod
-~ Nyaa! Felix is here to help you, nya~! ~
+~ Felix is here to help you~! ~
 
 The Felix Mod is a work-in-progress Minecraft mod that adds a new friendly (and slightly mischievous) companion to your world — Felix Argyle!
 
