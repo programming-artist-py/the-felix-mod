@@ -15,19 +15,25 @@ If you know a good solution or workaround, PLEASE share this. I am desperate to 
 ### Fabric API
 
 version: 0.116.7
+
 why: nearly everything in this mod needs Fabric API
+
 where to find: modrinth, curseforge, every legitimate mod site really
 
 ### Gecko Lib
 
 version: 4.8.2
+
 why: I was in a rush to get some updates out and I just left it there, it's kind of useless until the animations update...
+
 where to find: modrinth, curseforge, every legitimate mod site really
 
 ### Serpentine
 
 version: 1.6.0
+
 why: Config stuff
+
 where to find: the jar file will be available along side the felix mod jar in releases (1.5.0+)
 
 # THE Felix Mod
