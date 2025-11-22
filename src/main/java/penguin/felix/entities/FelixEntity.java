@@ -36,6 +36,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import penguin.felix.FelixMod;
+import penguin.felix.data.FelixConfig;
+import penguin.serpentine.core.Serpentine;
 
 public class FelixEntity extends AnimalEntity implements GeoEntity, NamedScreenHandlerFactory, Immutable {
 
@@ -44,15 +46,18 @@ public class FelixEntity extends AnimalEntity implements GeoEntity, NamedScreenH
     private boolean felixMenuDisabledAi = false;
     public PlayerEntity currentViewer; // keep public for handler access
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
+    private static int Default_hp = Serpentine.get(FelixMod.MOD_ID, FelixConfig.class).default_felix_hp;
 
     public FelixEntity(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
+        float configHp = Serpentine.get(FelixMod.MOD_ID, FelixConfig.class).default_felix_hp;
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(configHp);
+        this.setHealth(configHp); // set current health to match
     }
 
     public static DefaultAttributeContainer.Builder createFelixAttributes() {
         return AnimalEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0) // temporary default
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35);
     }
 

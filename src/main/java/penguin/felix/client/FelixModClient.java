@@ -9,6 +9,7 @@ import penguin.felix.client.render.FelixRenderer;
 @net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class FelixModClient implements ClientModInitializer {
 
+    @net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
     @Override
     public void onInitializeClient() {
         // Register the renderer for the static field
