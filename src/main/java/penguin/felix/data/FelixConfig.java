@@ -14,14 +14,38 @@ public class FelixConfig extends Config {
     }
 
     public int default_felix_hp;
+    public float default_walkspeed;
+    public float goo_ball_hunger_gain;
+    public int goo_ball_saturation;
+    public float goo_bucket_hunger_gain;
+    public int goo_bucket_saturation;
+    public float goo_bucket_health_gain;
+    public float goo_stick_hunger_gain;
+    public float goo_stick_health_gain;
 
     public void expected() {
-        this.expect("default_felix_hp", 10);
+        this.expect("default felix hp", 10);
+        this.expect("default felix walkspeed", 0.35F);
+        this.expect("cum ball hunger gain", 1.0F);
+        this.expect("cum ball saturation", 0);
+        this.expect("cum bucket hunger gain", 3.0F);
+        this.expect("cum bucket saturation", 1);
+        this.expect("cum bucket health gain", 4.0F);
+        this.expect("cum popsicle hunger gain", 2.0F);
+        this.expect("cum popsicle health gain", 2.0F);
     }
 
     public void noFileInit() {
         if (Runtime.getRuntime().availableProcessors() > 8) {
             this.default_felix_hp = 10;
+            this.default_walkspeed = 0.35F;
+            this.goo_ball_hunger_gain = 1.0F;
+            this.goo_ball_saturation = 0;
+            this.goo_bucket_saturation = 1;
+            this.goo_bucket_hunger_gain = 3.0F;
+            this.goo_bucket_health_gain = 4.0F;
+            this.goo_stick_hunger_gain = 2.0F;
+            this.goo_stick_health_gain = 2.0F;
         }
 
     }
@@ -52,11 +76,35 @@ public class FelixConfig extends Config {
             key = (String)entry.getKey();
             val = entry.getValue();
             switch (key) {
-                case "default_felix_hp":
-                this.default_felix_hp = Integer.parseInt(val.toString());
-                break;
+                case "default felix hp":
+                    this.default_felix_hp = Integer.parseInt(val.toString());
+                    break;
+                case "default felix walkspeed":
+                    this.default_walkspeed = Float.parseFloat(val.toString());
+                    break;
+                case "cum ball hunger gain":
+                    this.goo_ball_hunger_gain = Float.parseFloat(val.toString());
+                    break;
+                case "cum ball saturation":
+                    this.goo_ball_saturation = Integer.parseInt(val.toString());
+                    break;
+                case "cum bucket hunger gain":
+                    this.goo_bucket_hunger_gain = Float.parseFloat(val.toString());
+                    break;
+                case "cum bucket saturation":
+                    this.goo_bucket_saturation = Integer.parseInt(val.toString());
+                    break;
+                case "cum bucket health gain":
+                    this.goo_bucket_health_gain = Float.parseFloat(val.toString());
+                    break;
+                case "cum popsicle hunger gain":
+                    this.goo_stick_hunger_gain = Float.parseFloat(val.toString());
+                    break;
+                case "cum popsicle health gain":
+                    this.goo_stick_health_gain = Float.parseFloat(val.toString());
+                    break;
                 default:
-                throw new IllegalArgumentException("Unknown key: " + key);
+                    throw new IllegalArgumentException("Unknown key: " + key);
             }
         }
 
@@ -66,6 +114,9 @@ public class FelixConfig extends Config {
     public void afterLoad() {
         if (this.default_felix_hp < 1) {
             this.default_felix_hp = 1;
+        }
+        if (this.default_walkspeed < 0.35) {
+            this.default_walkspeed = 0.35F;
         }
 
     }

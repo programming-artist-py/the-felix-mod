@@ -10,6 +10,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import penguin.felix.FelixMod;
+import penguin.felix.data.FelixConfig;
+import penguin.serpentine.core.Serpentine;
 
 public class SlimeBall extends Item {
 
@@ -26,6 +29,7 @@ public class SlimeBall extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity entity) {
+        FelixConfig config = Serpentine.get(FelixMod.MOD_ID, FelixConfig.class);
         if (!world.isClient && entity instanceof PlayerEntity player) {
             // Play squishy sound
             world.playSound(
@@ -38,7 +42,10 @@ public class SlimeBall extends Item {
             );
 
 
-            player.getHungerManager().add(1, 0.0F);
+            player.getHungerManager().add(
+                Math.round(config.goo_ball_hunger_gain),  // converts float/double to int safely
+                (float) config.goo_ball_saturation       // ensure float type
+            );
             // Consume the item
             if (!player.isCreative()) {
                 stack.decrement(1);

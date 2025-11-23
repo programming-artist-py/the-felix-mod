@@ -14,6 +14,7 @@ import penguin.felix.FelixMod;
 public class FelixMenuScreenHandler extends ScreenHandler {
 
     private final Inventory felixInventory;
+    @SuppressWarnings("unused")
     private final int entityId;
     private final FelixEntity owner;
 

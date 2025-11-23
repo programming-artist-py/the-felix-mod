@@ -11,6 +11,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import penguin.felix.FelixMod;
+import penguin.felix.data.FelixConfig;
+import penguin.serpentine.core.Serpentine;
 
 public class SlimeBucket extends Item {
 
@@ -27,11 +30,15 @@ public class SlimeBucket extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity entity) {
+        FelixConfig config = Serpentine.get(FelixMod.MOD_ID, FelixConfig.class);
         if (!world.isClient && entity instanceof PlayerEntity player) {
             // Heal the player by 2 hearts
-            player.heal(4.0F);
+            player.heal(config.goo_bucket_health_gain);
 
-            player.getHungerManager().add(3, 1.0F);
+            player.getHungerManager().add(
+                Math.round(config.goo_bucket_hunger_gain),  // converts float/double to int safely
+                (float) config.goo_bucket_saturation       // ensure float type
+            );
 
             // Play squishy sound
             world.playSound(
