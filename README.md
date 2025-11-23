@@ -1,3 +1,12 @@
+# About Serpentine
+
+Serpentine is a lightweight configuration mod made by me exclusively for the felix mod, it doesn't really have compatibility with having multiple mods need to use its config screen though...
+If you have issues with Serpentine, you can use this repository's issues about it.
+
+
+Serpentine uses the MIT license, unlike the felix mod which uses CC0-1.0!!!!
+
+
 # IMPORTANT!!!
 
 development of the felix mod will be stalled because of the animations.
