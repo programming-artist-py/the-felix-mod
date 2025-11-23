@@ -4,6 +4,8 @@ Serpentine is a lightweight configuration mod made by me exclusively for the fel
 If you have issues with Serpentine, you can use this repository's issues about it.
 
 
+Serpentine uses the MIT license, unlike the felix mod which uses CC0-1.0!!!!
+
 
 # IMPORTANT!!!
 
