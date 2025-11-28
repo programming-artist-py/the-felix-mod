@@ -34,7 +34,7 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*",
-		"serpentine": ">=1.7.0",
+		"serpentine": ">=2.0.0",
 		"geckolib": "4.8.2"
 	}
 }
