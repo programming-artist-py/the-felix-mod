@@ -13,6 +13,7 @@ import penguin.felix.items.FelixSpawnEggItem;
 import penguin.felix.items.SlimeBall;
 import penguin.felix.items.SlimeBucket;
 import penguin.felix.items.SlimeStick;
+import penguin.serpentine.core.Config;
 import penguin.felix.data.FelixConfig;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -20,6 +21,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.item.*;
@@ -48,6 +50,16 @@ public class FelixMod implements ModInitializer {
 
         // serpentine config
         penguin.serpentine.core.Serpentine.register(CONFIG);
+
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            ServerPlayerEntity player = handler.player;
+            Config cfg = penguin.serpentine.core.Serpentine.getConfig(MOD_ID);
+
+            if (cfg != null) { // ✅ check for null
+                penguin.serpentine.network.ConfigNetworking.sendS2CSync(player, cfg, false);
+            }
+        });
+
 
         FELIXENTITY = registerEntity(MOD_ID, "felix",
             EntityType.Builder.create(FelixEntity::new, SpawnGroup.MISC)
