@@ -65,7 +65,7 @@ version: 1.6.0
 
 why: Config stuff
 
-where to find: [to manually build it](https://github.com/programming-artist-py/serpentine), [soon on modrinth](https://modrinth.com/mod/serpentine)
+where to find: [to manually build it](https://github.com/programming-artist-py/serpentine), [soon on modrinth](https://modrinth.com/mod/serpentine), [releases page on github](https://github.com/programming-artist-py/serpentine/releases/tag/fabric-1.21.1-2.0.0)
 
 # About Serpentine
 
