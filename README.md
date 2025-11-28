@@ -1,7 +1,7 @@
 # About Serpentine
 
 Serpentine is a lightweight configuration mod made by me exclusively for the felix mod, it doesn't really have compatibility with having multiple mods need to use its config screen though...
-If you have issues with Serpentine, you can use this repository's issues about it.
+If you have issues with Serpentine, visit [here](https://github.com/programming-artist-py/serpentine/issues)
 
 
 Serpentine uses the MIT license, unlike the felix mod which uses CC0-1.0!!!!
@@ -27,7 +27,7 @@ version: 0.116.7
 
 why: nearly everything in this mod needs Fabric API
 
-where to find: modrinth, curseforge, every legitimate mod site really
+where to find: [modrinth](https://modrinth.com/mod/fabric-api), [curseforge](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 
 ### Gecko Lib
 
@@ -35,7 +35,7 @@ version: 4.8.2
 
 why: I was in a rush to get some updates out and I just left it there, it's kind of useless until the animations update...
 
-where to find: modrinth, curseforge, every legitimate mod site really
+where to find: [modrinth](https://modrinth.com/mod/geckolib), [curseforge](https://www.curseforge.com/minecraft/mc-mods/geckolib)
 
 ### Serpentine
 
@@ -43,7 +43,7 @@ version: 1.6.0
 
 why: Config stuff
 
-where to find: the jar file will be available along side the felix mod jar in releases (1.5.0+)
+where to find: [to manually build it](https://github.com/programming-artist-py/serpentine), [soon it'll be on modrinth](https://modrinth.com/mod/serpentine)
 
 # THE Felix Mod
 ~ Felix is here to help you~! ~
