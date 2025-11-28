@@ -1,6 +1,8 @@
 # About Serpentine
 
-Serpentine is a lightweight configuration mod made by me exclusively for the felix mod, it doesn't really have compatibility with having multiple mods need to use its config screen though...
+Serpentine is a lightweight configuration mod made by me ~~exclusively for the felix mod, it doesn't really have compatibility with having multiple mods need to use its config screen though...~~ it also has compatibility with multiple mods using its config screen now!
+
+
 If you have issues with Serpentine, visit [here](https://github.com/programming-artist-py/serpentine/issues)
 
 
@@ -43,7 +45,7 @@ version: 1.6.0
 
 why: Config stuff
 
-where to find: [to manually build it](https://github.com/programming-artist-py/serpentine), [soon it'll be on modrinth](https://modrinth.com/mod/serpentine)
+where to find: [to manually build it](https://github.com/programming-artist-py/serpentine), [soon on modrinth](https://modrinth.com/mod/serpentine)
 
 # THE Felix Mod
 ~ Felix is here to help you~! ~
